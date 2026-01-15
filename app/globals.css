@@ -10,6 +10,17 @@
   --foreground: #171717;
 }
 
+@layer utilities {
+  /* Custom 3D Utilities */
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -21,3 +32,5 @@ body {
   color: var(--foreground);
   background: var(--background);
 }
+
+

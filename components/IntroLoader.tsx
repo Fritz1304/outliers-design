@@ -16,38 +16,38 @@ export default function IntroLoader({ children }: IntroLoaderProps) {
   const whiteLayerRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
+    const mm = gsap.matchMedia();
+
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "+=150%", 
-          pin: true,
-          scrub: 1, 
-        },
+      mm.add({
+        isDesktop: "(min-width: 768px)",
+        isMobile: "(max-width: 767px)"
+      }, (context) => {
+        const { isDesktop } = context.conditions as { isDesktop: boolean };
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "+=150%", 
+            pin: true,
+            scrub: 1, 
+          },
+        });
+
+        // 1. Zoom the Masked Overlay
+        tl.to(overlayGroupRef.current, {
+          scale: isDesktop ? 150 : 80, // Smaller zoom needed for mobile screen ratio
+          ease: "power2.inOut", 
+          transformOrigin: "50% 45%", 
+        })
+        
+        // 2. Fade out the White Layer
+        .to(whiteLayerRef.current, {
+          opacity: 0,
+          ease: "power1.inOut", 
+        }, "-=25%");
       });
-
-      // ---------------------------------------------------------
-      // ANIMATION SEQUENCE
-      // ---------------------------------------------------------
-
-      // 1. Zoom the Masked Overlay
-      tl.to(overlayGroupRef.current, {
-        scale: 150, 
-        ease: "power2.inOut", 
-        // ORIGIN CALCULATION:
-        // We merged the text back to a single "OUTLIERS" string for perfect kerning.
-        // Center of "OUTLIERS" is x=150.
-        // "T" is the 3rd letter, slightly left of center.
-        // Calculated position is approx 37% of the total ViewBox width (300).
-        transformOrigin: "50% 45%", 
-      })
-      
-      // 2. Fade out the White Layer
-      .to(whiteLayerRef.current, {
-        opacity: 0,
-        ease: "power1.inOut", 
-      }, "-=25%")
       
     }, containerRef);
 
@@ -62,41 +62,38 @@ export default function IntroLoader({ children }: IntroLoaderProps) {
       */}
       <div className="absolute inset-0 z-50 flex items-center justify-center pointer-events-none">
         {/* 
-          ViewBox Height Increased to 150 to fit two lines 
+          Using responsive viewBox or conditional sizing to ensure text fits 
         */}
         <svg className="w-full h-full" viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice">
           <defs>
             <mask id="textMask">
               <rect x="0" y="0" width="300" height="150" fill="white" />
               
-              {/* 
-                Text Holes 
-              */}
               <g className="text-hole">
-                {/* Line 1: OUTLIERS (Unified for spacing) */}
+                {/* Responsive font size and positioning via classes or inline */}
                 <text 
                   x="150" 
                   y="65" 
                   textAnchor="middle" 
                   dominantBaseline="middle" 
-                  fontSize="30" 
-                  fontWeight="bold" 
+                  className="text-[30px] md:text-[30px] font-bold"
                   letterSpacing="3" 
                   fill="black"
+                  style={{ fontFamily: "var(--font-outfit)", fontSize: "30px" }}
                 >
                 OUTLIERS
                 </text>
 
-                {/* Line 2: DESIGN at y=110 */}
                 <text 
                   x="150" 
-                  y="90" 
+                  y="92" 
                   textAnchor="middle" 
                   dominantBaseline="middle" 
-                  fontSize="16" 
+                  className="text-[14px] md:text-[16px]"
                   fontWeight="normal" 
-                  letterSpacing="3" 
+                  letterSpacing="4" 
                   fill="black"
+                  style={{ fontFamily: "var(--font-outfit)", fontSize: "15px" }}
                 >
                   DESIGN
                 </text>

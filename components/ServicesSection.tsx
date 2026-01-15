@@ -11,30 +11,35 @@ const services = [
     id: "01",
     title: "Diseño UI/UX",
     description: "Creación de interfaces que no solo se ven bien, sino que se sienten naturales e intuitivas. Diseñamos sistemas completos que escalan con tu producto.",
-    imageColor: "bg-blue-900", // Placeholder for image
+    image: "/projects/gamma.png",
+    imageColor: "bg-blue-900",
   },
   {
     id: "02",
     title: "Desarrollo Web",
     description: "Ingeniería robusta con Next.js y React. Construimos sitios veloces, seguros y optimizados para SEO que convierten visitantes en clientes.",
+    image: "/projects/delta.png",
     imageColor: "bg-indigo-900",
   },
   {
     id: "03",
     title: "Estrategia de Marca",
     description: "Identidades visuales cohesivas que narran la historia única de tu negocio. Desde el logotipo hasta la voz de marca en cada punto de contacto.",
+    image: "/projects/epsilon.png",
     imageColor: "bg-purple-900",
   },
   {
     id: "04",
     title: "Marketing Digital",
     description: "Estrategias orientadas a datos. Maximizamos tu ROI mediante campañas precisas en redes sociales, SEM y posicionamiento orgánico.",
+    image: "/projects/zeta.png",
     imageColor: "bg-fuchsia-900",
   },
   {
     id: "05",
     title: "Consultoría Tech",
     description: "Auditoría experta de tu infraestructura digital. Optimizamos procesos, elegimos el stack tecnológico ideal y preparamos tu equipo para el éxito.",
+    image: "/projects/alpha.png",
     imageColor: "bg-rose-900",
   },
 ];
@@ -113,32 +118,30 @@ export default function ServicesSection() {
                 {service.description}
               </p>
               <div className="mt-12">
-                  <button className="text-sm uppercase tracking-widest border-b border-white/30 pb-1 hover:border-white transition-colors">
+                  {/* <button className="text-sm uppercase tracking-widest border-b border-white/30 pb-1 hover:border-white transition-colors">
                       Explorar Servicio
-                  </button>
+                  </button> */}
               </div>
             </div>
           ))}
         </div>
 
         {/* RIGHT: Sticky Images Container */}
-        <div className="services-images hidden md:flex w-1/2 h-screen sticky top-0 items-center justify-center overflow-hidden border-b border-white/5 bg-zinc-900">
+        <div className="services-images hidden md:flex w-1/2 h-screen sticky top-0 items-center justify-center overflow-hidden border-b border-white/5">
           {services.map((service, i) => (
             <div
               key={service.id}
               ref={(el) => { imagesRef.current[i] = el; }}
-              className={`absolute inset-0 w-full h-full flex items-center justify-center ${service.imageColor}`}
+              className={`absolute inset-0 w-full h-full flex items-center justify-center bg-zinc-900`}
             >
-               {/* Placeholder for actual image */}
-               <div className="text-center p-12">
-                  <div className="w-32 h-32 rounded-full bg-white/10 mx-auto mb-6 flex items-center justify-center backdrop-blur-md border border-white/20">
-                     <span className="text-3xl">✦</span>
-                  </div>
-                  <span className="text-2xl font-mono text-white/50 tracking-widest block">IMG {service.id}</span>
-               </div>
+               <img 
+                 src={service.image} 
+                 alt={service.title}
+                 className="w-full h-full object-cover opacity-60"
+               />
                
                {/* Gradient Overlay for texture */}
-               <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-black/20" />
+               <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-black/40" />
             </div>
           ))}
         </div>

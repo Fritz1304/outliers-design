@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import IntroLoader from "../components/IntroLoader";
 import ProjectStack from "../components/ProjectStack";
 import ServicesSection from "../components/ServicesSection";
+import FloatingGallery from "../components/FloatingGallery";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -89,43 +90,62 @@ export default function Home() {
       
       <IntroLoader>
         {/* Hero Section */}
-        <section className="w-full h-screen flex flex-col items-center justify-center text-center px-4 bg-gradient-to-b from-black to-zinc-900 border-b border-white/5">
-          <div className="overflow-hidden">
-            <h1 className="hero-title text-5xl md:text-7xl font-bold tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
-              OUTLIERS DESIGN
-            </h1>
+        <section className="w-full h-screen flex flex-col items-center justify-center text-center px-4 relative overflow-hidden">
+          {/* Background Image Layer */}
+          <div className="absolute inset-0 z-0">
+            <img 
+              src="/projects/alpha.png" 
+              alt="Background" 
+              className="w-full h-full object-cover opacity-40"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black via-black/60 to-zinc-900" />
           </div>
-          <p className="hero-text text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-8">
-            Transformamos ideas complejas en experiencias digitales memorables.
-          </p>
-          <a 
-            href="#contact"
-            className="hero-btn bg-white text-black px-8 py-3 rounded-full font-medium hover:bg-gray-200 transition-colors inline-block"
-          >
-            Inicia tu Proyecto
-          </a>
+
+          <div className="relative z-10">
+            <div className="overflow-hidden">
+              <h1 className="hero-title text-5xl md:text-7xl font-bold tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
+                OUTLIERS DESIGN
+              </h1>
+            </div>
+            <p className="hero-text text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-8">
+              Transformamos ideas complejas en experiencias digitales memorables.
+            </p>
+            <a 
+              href="#contact"
+              className="hero-btn bg-white text-black px-8 py-3 rounded-full font-medium hover:bg-gray-200 transition-colors inline-block"
+            >
+              Inicia tu Proyecto
+            </a>
+          </div>
         </section>
       </IntroLoader>
 
       {/* About Section */}
-      <section id="about" className="reveal-section w-full py-24 px-4 bg-black border-b border-white/5">
+      <section id="about" className="reveal-section w-full pt-12 pb-24 px-4 bg-black border-b border-white/5">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center tracking-tight">Quiénes Somos</h2>
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 text-gray-400 text-lg">
-              <p>
-                En Outliers Design, no seguimos tendencias; las creamos. Somos un colectivo de diseñadores y desarrolladores apasionados por la excelencia digital.
-              </p>
-              <p>
-                Creemos que cada marca tiene una historia única que contar, y nuestra misión es amplificar esa voz a través de diseño visualmente impactante y tecnología de vanguardia.
-              </p>
+            <p>
+              Somos aliados creativos de marcas una chimba, que saben lo que valen y quieren dejar huella.
+              Si tu marca va con toda, este equipo es para ti.
+              Outliers Design nace en el corazón de Casanare con un sueño claro: usar el diseño como herramienta de transformación.
+              Somos una agencia de diseño gráfico, branding y marketing con enfoque social, que combina estrategia, tecnología e innovación para crear marcas auténticas.
+            </p>
             </div>
-            <div className="h-64 md:h-80 bg-zinc-900 rounded-lg flex items-center justify-center border border-white/10">
-              <span className="text-gray-600 font-mono">[Espacio para Imagen de Equipo]</span>
+            <div className="h-64 md:h-80 bg-zinc-900 rounded-lg overflow-hidden border border-white/10 group">
+              <img 
+                src="/projects/beta.png" 
+                alt="Outliers Team" 
+                className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500"
+              />
             </div>
           </div>
         </div>
       </section>
+
+      {/* Visual Interstitial Section */}
+      <FloatingGallery />
 
       {/* Services Section */}
       <ServicesSection />
